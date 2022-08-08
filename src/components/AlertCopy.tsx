@@ -10,7 +10,7 @@ interface Props {
 	isAlert: boolean;
 	closeAlert: () => void;
 	onCopySuccess: () => void;
-	id: string;
+	link: string;
 }
 
 //-------------------------------------------------------------------------//
@@ -20,12 +20,8 @@ const AlertCopy: React.FC<Props> = ({
 	isAlert,
 	closeAlert,
 	onCopySuccess,
-	id,
+	link,
 }) => {
-	const [link, setLink] = useState("");
-	useEffect(() => {
-		setLink(getBillFullPath(id));
-	}, []);
 	return (
 		<Collapse in={isAlert}>
 			<Alert severity="success" onClose={closeAlert}>

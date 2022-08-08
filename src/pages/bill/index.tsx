@@ -6,7 +6,10 @@ import React, { useEffect, useState } from "react";
 import BackDrop from "@components/Backdrop";
 import { addRecentBills } from "@utils/storage";
 import AlertCopy from "@components/AlertCopy";
-import { Snackbar } from "@mui/material";
+import { Container, Snackbar } from "@mui/material";
+import { getBillFullPath } from "@utils/route";
+import BillHeader from "@components/BillHeader";
+import BillStats from "@components/BillStats";
 
 //-------------------------------------------------------------------------//
 // summary :  component types section
@@ -25,6 +28,10 @@ const Index: React.FC<Props> = ({ query }) => {
 	const [data, loading, err] = useBillQuery(id as string);
 	const [value, setValue] = useState(parseInt(page as string));
 	const [isCopy, setCopy] = useState(false);
+	const [link, setLink] = useState("");
+	useEffect(() => {
+		setLink(getBillFullPath(id as string));
+	}, []);
 	useEffect(() => {
 		if (data) {
 			if (typeof window !== "undefined") {
@@ -51,20 +58,22 @@ const Index: React.FC<Props> = ({ query }) => {
 		return <BackDrop open={true}></BackDrop>;
 	}
 	return (
-		<div>
+		<Container maxWidth={"lg"} sx={{ padding: "1.5rem" }}>
 			<AlertCopy
-				id={id as string}
 				isAlert={isAlert}
 				closeAlert={closeAlert}
 				onCopySuccess={onCopySuccess}
+				link={link}
 			/>
+			<BillHeader onCopySuccess={onCopySuccess} link={link} />
 			<Snackbar
 				open={isCopy}
 				onClose={() => setCopy(false)}
 				autoHideDuration={2000}
 				message="Copied to clipboard"
 			/>
-		</div>
+			<BillStats bill={data} />
+		</Container>
 	);
 };
 

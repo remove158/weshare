@@ -37,10 +37,7 @@ const converter = {
 	fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Bill,
 };
 
-export const useBillQuery = (id: string) => {
-	const billRef = getBillRef(id);
-	return useDocumentData<Bill>(billRef);
-};
+export const useBillQuery = (id: string) =>  useDocumentData<Bill>(getBillRef(id));
 
 export const updateOrders = async (id: string, orders: Order[]) => {
 	const billRef = getBillRef(id);
