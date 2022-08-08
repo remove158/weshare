@@ -1,16 +1,11 @@
-import {
-	addDoc,
-	updateDoc,
-	collection,
-	doc,
-	serverTimestamp,
-	Timestamp,
-	QueryDocumentSnapshot,
-} from "firebase/firestore";
 import { db } from "@utils/firebase";
+import {
+	addDoc, collection,
+	doc, QueryDocumentSnapshot, serverTimestamp, updateDoc
+} from "firebase/firestore";
+import { Dispatch, SetStateAction } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { SetStateAction } from "react";
-import { Dispatch } from "react";
+import { Bill, Order, User } from "types";
 const BILL_COLLECTION_NAME = "bills";
 const BILL_COLLECTION = collection(db, BILL_COLLECTION_NAME);
 
@@ -35,28 +30,7 @@ export const createBill = async ({ setLoading }: CreateBillArgs) => {
 	return id;
 };
 
-interface PaidUser {
-	id: string;
-	status: string;
-}
-interface Order {
-	id: string;
-	name: string;
-	price: number;
-	paidUsers: PaidUser[];
-}
 
-interface User {
-	id: string;
-	name: string;
-}
-
-export interface Bill {
-	orders: Order[];
-	users: User[];
-	updatedAt: Timestamp;
-	createdAt: Timestamp;
-}
 
 const converter = {
 	toFirestore: (data: Bill) => data,
