@@ -18,7 +18,9 @@ const updateBillFunc = updateDoc<Bill>
 
 const generateDefaultBill = () => {
 	const time = serverTimestamp();
-	return { createdAt: time, updatedAt: time } as Bill;
+	const orders  = [] as Order[]
+	const users = [] as User[]
+	return { orders , users ,createdAt: time, updatedAt: time } as Bill;
 };
 
 const getBillRef = (id: string) =>
