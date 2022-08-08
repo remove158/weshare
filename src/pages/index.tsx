@@ -33,7 +33,7 @@ const Home: NextPage = () => {
 							color="text.primary"
 							gutterBottom
 						>
-							Share a Bill
+							สร้างบิลใหม่
 						</Typography>
 						<Typography
 							variant="h5"
