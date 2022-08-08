@@ -1,5 +1,6 @@
 import BackDrop from "@components/Backdrop";
 import Center from "@components/Center";
+import RecentBill from "@components/RecentBill";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { createBill } from "@utils/api";
 import type { NextPage } from "next";
@@ -59,6 +60,7 @@ const Home: NextPage = () => {
 								</Button>
 							)}
 						</Stack>
+						<RecentBill />
 					</Container>
 				</Box>
 				<BackDrop open={isLoading} />
