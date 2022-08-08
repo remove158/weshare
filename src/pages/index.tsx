@@ -3,11 +3,10 @@ import Center from "@components/Center";
 import RecentBill from "@components/RecentBill";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { createBill } from "@utils/api";
+import { createBillPath } from "@utils/route";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
-const createBillPath = (id: string) => `/bill?id=${id}&page=2`;
 
 const Home: NextPage = () => {
 	const [isLoading, setLoading] = useState(false);
