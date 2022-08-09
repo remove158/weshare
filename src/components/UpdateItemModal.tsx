@@ -114,6 +114,12 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 		}
 		setOrderPeople(curOrder, false);
 	}, [paid]);
+
+	React.useEffect(() => {
+		const curOrder = orders[idx];
+		SetPaid(curOrder.paidUsers.length === bill.users.length);
+	});
+
 	const delPeopleFormCurrentOrder = (user_id: string) => {
 		const curOrder = orders[idx];
 		curOrder.paidUsers = curOrder.paidUsers.filter((i) => i.id !== user_id);
@@ -213,7 +219,7 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 							Cancel
 						</Button>
 						<Button fullWidth type="submit" onClick={onSave} variant="outlined">
-							Save changes
+							Save
 						</Button>
 					</DialogActions>
 				</div>
