@@ -25,8 +25,8 @@ function Row({ row, idx }: RowProps) {
 		<React.Fragment>
 			<TableRow
 				hover
-				sx={{ "& > *": { borderBottom: "unset" } }}
 				onClick={() => setOpen(!open)}
+				sx={{ "&>*": { borderBottom: "unset" } }}
 			>
 				<TableCell>
 					<IconButton aria-label="expand row" size="small">
