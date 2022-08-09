@@ -11,6 +11,7 @@ import { updateOrders } from "@utils/api";
 import * as React from "react";
 import { Bill, Order } from "types";
 import { v4 as uuidv4 } from "uuid";
+import UpdateItemModel from "./UpdateItemModal";
 const columns = [
 	{ id: "name", label: "ชื่อรายการ" },
 	{
@@ -24,13 +25,13 @@ const columns = [
 		format: (value: number) => value.toLocaleString("en-US"),
 	},
 ];
-const addOrder = (orders: Order[], name: string, id: string) => {
+const addOrder = async (orders: Order[], name: string, id: string) => {
 	const item_id = uuidv4();
 	const tmp: Order[] = [
 		{ id: item_id, name, price: 0, paidUsers: [] },
 		...orders,
 	];
-	updateOrders(id, tmp);
+	await updateOrders(id, tmp);
 };
 
 function createData(
@@ -50,6 +51,7 @@ interface Props {
 // summary : component function section
 //-------------------------------------------------------------------------//
 const Orders: React.FC<Props> = ({ id, bill }) => {
+	const [open, setOpen] = React.useState(false);
 	const rows = bill.orders.map(({ name, price, paidUsers, id }) => {
 		const avg_price =
 			price === 0 || paidUsers.length === 0 ? 0 : price / paidUsers.length;
@@ -57,10 +59,11 @@ const Orders: React.FC<Props> = ({ id, bill }) => {
 	});
 
 	const [text, setText] = React.useState("");
-	const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+	const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
-		addOrder(bill.orders, text, id);
+		await addOrder(bill.orders, text, id);
 		setText("");
+		setOpen(true);
 	};
 	return (
 		<>
@@ -113,6 +116,15 @@ const Orders: React.FC<Props> = ({ id, bill }) => {
 					</TableBody>
 				</Table>
 			</TableContainer>
+			{open && (
+				<UpdateItemModel
+					id={id}
+					open={open}
+					setOpen={setOpen}
+					bill={bill}
+					idx={0}
+				/>
+			)}
 		</>
 	);
 };
