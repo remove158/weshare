@@ -36,12 +36,12 @@ function Row({ row, idx }: RowProps) {
 				<TableCell component="th" scope="row">
 					<Typography component="span">{row.name}</Typography>
 				</TableCell>
-				<TableCell align="right">
+				<TableCell align="right" sx={{ borderBottom: "unset" }}>
 					{row.totalPrice.toLocaleString("en-US")}
 				</TableCell>
 			</TableRow>
 			<TableRow>
-				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
 					<Collapse in={open} timeout="auto" unmountOnExit>
 						<Box sx={{ margin: 1 }}>
 							{row.orders.length === 0 ? (
