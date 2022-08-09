@@ -138,6 +138,9 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 									label="ราคา"
 									value={price}
 									type="number"
+									onFocus={(event) => {
+										event.target.select();
+									}}
 									fullWidth
 									onChange={(e) => setPrice(+e.target.value)}
 								/>

@@ -3,6 +3,7 @@ import BackDrop from "@components/Backdrop";
 import BillHeader from "@components/BillHeader";
 import BillStats from "@components/BillStats";
 import Orders from "@components/Orders";
+import Users from "@components/Users";
 import HomeIcon from "@mui/icons-material/Home";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SegmentIcon from "@mui/icons-material/Segment";
@@ -89,9 +90,9 @@ const Index: React.FC<Props> = ({ query }) => {
 			<BillStats bill={data} />
 			<Hidden mdUp>
 				<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-					{/* <TabPane value={value} index={1}>
-						<People id={id} bill={data} />
-					</TabPane> */}
+					<TabPane value={value} index={1}>
+						<Users id={id as string} bill={data} />
+					</TabPane>
 					<TabPane value={value} index={2}>
 						<Orders id={id as string} bill={data} />
 					</TabPane>
@@ -123,7 +124,9 @@ const Index: React.FC<Props> = ({ query }) => {
 					<Grid item xs>
 						<Orders id={id as string} bill={data} />
 					</Grid>
-					<Grid item>{/* <People id={id} bill={data} /> */}</Grid>
+					<Grid item>
+						<Users id={id as string} bill={data} />
+					</Grid>
 				</Grid>
 			</Hidden>
 		</Container>
