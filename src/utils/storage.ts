@@ -12,8 +12,8 @@ export const addRecentBills = (id: string) => {
 	let data: string[] = [id];
 	if (recentString) {
 		const recentArr: string[] = JSON.parse(recentString);
-		const tmp = [...recentArr, ...data];
-		data = [...new Set(tmp)];
+		const filterOut = recentArr.filter((e) => e != id);
+		data = [id, ...filterOut];
 	}
 	return localStorage.setItem(RECENT_KEY, JSON.stringify(data));
 };
