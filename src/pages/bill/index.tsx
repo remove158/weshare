@@ -133,7 +133,7 @@ const Index: React.FC<Props> = ({ query }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: any = (context: any) => {
 	return {
 		props: { query: context.query },
 	};
