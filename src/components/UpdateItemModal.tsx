@@ -12,6 +12,7 @@ import { styled } from "@mui/material/styles";
 import * as React from "react";
 import { getColor } from "@utils/random";
 import { updateOrders } from "@utils/api";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Dispatch, SetStateAction } from "react";
 import { Bill, Order, PaidUser } from "types";
 import AddUser from "@components/AddUser";
@@ -125,6 +126,12 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 		curOrder.paidUsers = curOrder.paidUsers.filter((i) => i.id !== user_id);
 		setOrderPeople(curOrder);
 	};
+
+	const deleteOrderFromBill = async () => {
+		const tmp = bill.orders.filter((_, idx) => idx !== idx);
+		updateOrders(id, tmp);
+		setOpen(false);
+	};
 	const onSave: (e: any) => void = async (e) => {
 		e.preventDefault();
 		await updateOrders(id, orders);
@@ -148,7 +155,7 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 					</BootstrapDialogTitle>
 					<DialogContent dividers>
 						<Stack spacing={2}>
-							<Stack direction="row" justifyContent="flex-end">
+							<Stack direction="row" justifyContent="space-between">
 								<FormControlLabel
 									control={
 										<Checkbox
@@ -158,6 +165,14 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 									}
 									label="จ่ายทุกคน"
 								/>
+								<Button
+									onClick={deleteOrderFromBill}
+									variant="outlined"
+									startIcon={<DeleteIcon />}
+									color="error"
+								>
+									Delete
+								</Button>
 							</Stack>
 							<TextField
 								label="ชื่อ"

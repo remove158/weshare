@@ -11,7 +11,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { getColor } from "@utils/random";
 import * as React from "react";
 import { Bill, Order, User } from "types";
 
@@ -24,13 +23,13 @@ function Row({ row, idx }: RowProps) {
 
 	return (
 		<React.Fragment>
-			<TableRow hover sx={{ "& > *": { borderBottom: "unset" } }}>
+			<TableRow
+				hover
+				sx={{ "& > *": { borderBottom: "unset" } }}
+				onClick={() => setOpen(!open)}
+			>
 				<TableCell>
-					<IconButton
-						aria-label="expand row"
-						size="small"
-						onClick={() => setOpen(!open)}
-					>
+					<IconButton aria-label="expand row" size="small">
 						{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton>
 				</TableCell>
