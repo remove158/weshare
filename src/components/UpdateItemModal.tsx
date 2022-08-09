@@ -87,7 +87,10 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 		setOrderPeople(curOrder);
 	}, [name, price]);
 
-	const setOrderPeople = (curOrder: Order) => {
+	const setOrderPeople = (curOrder: Order, saveHistory: boolean = true) => {
+		if (saveHistory) {
+			setLastChange(curOrder.paidUsers);
+		}
 		const tmp_order = orders.map((e, i) => {
 			if (i !== idx) return e;
 			return curOrder;
@@ -105,12 +108,11 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 	React.useEffect(() => {
 		const curOrder = orders[idx];
 		if (paid) {
-			setLastChange(curOrder.paidUsers);
 			curOrder.paidUsers = bill.users.map((e) => ({ id: e.id }));
 		} else {
 			curOrder.paidUsers = lastChange;
 		}
-		setOrderPeople(curOrder);
+		setOrderPeople(curOrder, false);
 	}, [paid]);
 	const delPeopleFormCurrentOrder = (user_id: string) => {
 		const curOrder = orders[idx];
