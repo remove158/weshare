@@ -128,8 +128,8 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 	};
 
 	const deleteOrderFromBill = async () => {
-		const tmp = bill.orders.filter((_, idx) => idx !== idx);
-		updateOrders(id, tmp);
+		const tmp = bill.orders.filter((_, o_id) => o_id !== idx);
+		await updateOrders(id, tmp);
 		setOpen(false);
 	};
 	const onSave: (e: any) => void = async (e) => {
