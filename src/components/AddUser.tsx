@@ -15,7 +15,7 @@ const deletePeople = (peoples: User[], item_id: string, id: string) => {
 	updateUsers(id, tmp);
 };
 const AddPeople = ({ id, bill }: { id: string; bill: Bill }) => {
-	const { users, orders } = bill;
+	const { users } = bill;
 
 	const [text, setText] = useState("");
 	return (

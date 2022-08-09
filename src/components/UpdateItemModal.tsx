@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Grid, Typography } from "@mui/material";
+import { Checkbox, FormControlLabel, Grid, Typography } from "@mui/material";
 import { Box, Chip, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -14,6 +14,7 @@ import { getColor } from "@utils/random";
 import { updateOrders } from "@utils/api";
 import { Dispatch, SetStateAction } from "react";
 import { Bill, Order, PaidUser } from "types";
+import AddUser from "@components/AddUser";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	"& .MuiDialogContent-root": {
@@ -68,10 +69,13 @@ interface Props {
 const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 	const [name, setName] = React.useState(bill.orders[idx].name);
 	const [price, setPrice] = React.useState(bill.orders[idx].price);
-	const [peoples, setPeoples] = React.useState([...bill.users]);
 	const [orders, setOrders] = React.useState(
 		bill.orders.map((e) => ({ ...e, paidUsers: [...e.paidUsers] }))
 	);
+	const [lastChange, setLastChange] = React.useState(
+		bill.orders[idx].paidUsers
+	);
+	const [paid, SetPaid] = React.useState(false);
 
 	const isContain = (item_id: string) =>
 		orders[idx]?.paidUsers?.some((e) => e.id === item_id);
@@ -94,11 +98,20 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 		const curOrder = orders[idx];
 		const paidUser: PaidUser = {
 			id: user_id,
-			status: false,
 		};
 		curOrder.paidUsers = [...curOrder.paidUsers, paidUser];
 		setOrderPeople(curOrder);
 	};
+	React.useEffect(() => {
+		const curOrder = orders[idx];
+		if (paid) {
+			setLastChange(curOrder.paidUsers);
+			curOrder.paidUsers = bill.users.map((e) => ({ id: e.id }));
+		} else {
+			curOrder.paidUsers = lastChange;
+		}
+		setOrderPeople(curOrder);
+	}, [paid]);
 	const delPeopleFormCurrentOrder = (user_id: string) => {
 		const curOrder = orders[idx];
 		curOrder.paidUsers = curOrder.paidUsers.filter((i) => i.id !== user_id);
@@ -125,67 +138,82 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 					<BootstrapDialogTitle onClose={handleClose}>
 						<Typography>รายการ</Typography>
 					</BootstrapDialogTitle>
-					<form onSubmit={onSave}>
-						<DialogContent dividers>
-							<Stack spacing={2}>
-								<TextField
-									label="ชื่อ"
-									value={name}
-									fullWidth
-									onChange={(e) => setName(e.target.value)}
+					<DialogContent dividers>
+						<Stack spacing={2}>
+							<Stack direction="row" justifyContent="flex-end">
+								<FormControlLabel
+									control={
+										<Checkbox
+											checked={paid}
+											onChange={(e) => SetPaid(e.target.checked)}
+										/>
+									}
+									label="จ่ายทุกคน"
 								/>
-								<TextField
-									label="ราคา"
-									value={price}
-									type="number"
-									onFocus={(event) => {
-										event.target.select();
-									}}
-									fullWidth
-									onChange={(e) => setPrice(+e.target.value)}
-								/>
+							</Stack>
+							<TextField
+								label="ชื่อ"
+								value={name}
+								fullWidth
+								onChange={(e) => setName(e.target.value)}
+							/>
+							<TextField
+								label="ราคา"
+								value={price}
+								type="number"
+								onFocus={(event) => {
+									event.target.select();
+								}}
+								fullWidth
+								onChange={(e) => setPrice(+e.target.value)}
+							/>
 
-								<Grid container>
-									{peoples.map((o, i) => {
-										if (isContain(o.id)) {
-											return (
-												<Grid key={i} item>
-													<Chip
-														variant="outlined"
-														label={o.name}
-														color={getColor(i)}
-														sx={{ m: 1 }}
-														onDelete={() => {
-															delPeopleFormCurrentOrder(o.id);
-														}}
-													/>
-												</Grid>
-											);
-										}
+							<Grid container>
+								{bill.users.map((o, i) => {
+									if (isContain(o.id)) {
 										return (
 											<Grid key={i} item>
 												<Chip
-													key={i}
 													variant="outlined"
 													label={o.name}
+													color={getColor(i)}
 													sx={{ m: 1 }}
-													onClick={() => addPeopleToCurrentOrder(o.id)}
+													onDelete={() => {
+														delPeopleFormCurrentOrder(o.id);
+													}}
 												/>
 											</Grid>
 										);
-									})}
-								</Grid>
-							</Stack>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={handleClose} variant="outlined" color="error">
-								Cancel
-							</Button>
-							<Button type="submit" onClick={onSave} variant="outlined">
-								Save changes
-							</Button>
-						</DialogActions>
-					</form>
+									}
+									return (
+										<Grid key={i} item>
+											<Chip
+												key={i}
+												variant="outlined"
+												label={o.name}
+												sx={{ m: 1 }}
+												onClick={() => addPeopleToCurrentOrder(o.id)}
+											/>
+										</Grid>
+									);
+								})}
+							</Grid>
+							<AddUser id={id} bill={bill} />
+						</Stack>
+					</DialogContent>
+					<DialogActions>
+						<Button
+							fullWidth
+							onClick={handleClose}
+							variant="outlined"
+							color="error"
+						>
+							Cancel
+						</Button>
+						<Button fullWidth type="submit" onClick={onSave} variant="outlined">
+							Save changes
+						</Button>
+					</DialogActions>
 				</div>
 			</BootstrapDialog>
 		</>

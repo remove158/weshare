@@ -1,6 +1,5 @@
 export type PaidUser = {
 	id: string;
-	status: boolean;
 };
 export type Order = {
 	id: string;
