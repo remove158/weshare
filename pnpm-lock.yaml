@@ -9,6 +9,7 @@ specifiers:
   '@types/react': 18.0.17
   '@types/react-copy-to-clipboard': ^5.0.4
   '@types/react-dom': 18.0.6
+  '@types/uuid': ^8.3.4
   eslint: 8.21.0
   eslint-config-next: 12.2.4
   firebase: ^9.9.2
@@ -18,6 +19,7 @@ specifiers:
   react-dom: 18.2.0
   react-firebase-hooks: ^5.0.3
   typescript: 4.7.4
+  uuid: ^8.3.2
 
 dependencies:
   '@emotion/react': 11.10.0_ug65io7jkbhmo4fihdmbrh3ina
@@ -25,12 +27,14 @@ dependencies:
   '@mui/icons-material': 5.8.4_cj4qjnqz5mgdcxqceumq6irqta
   '@mui/material': 5.9.3_sqzxty2p7kxc2tmue4tecplwku
   '@types/react-copy-to-clipboard': 5.0.4
+  '@types/uuid': 8.3.4
   firebase: 9.9.2
   next: 12.2.4_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-copy-to-clipboard: 5.1.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-firebase-hooks: 5.0.3_mssfp7b72txgleht46dj5bnpjq
+  uuid: 8.3.2
 
 devDependencies:
   '@types/node': 18.6.4
@@ -1196,6 +1200,10 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+    dev: false
 
   /@typescript-eslint/parser/5.32.0_qugx7qdu5zevzvxaiqyxfiwquq:
     resolution: {integrity: sha512-IxRtsehdGV9GFQ35IGm5oKKR2OGcazUoiNBxhRV160iF9FoyuXxjY+rIqs1gfnd+4eL98OjeGnMpE7RF/NBb3A==}
@@ -3209,6 +3217,11 @@ packages:
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+    dev: false
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
     dev: false
 
   /v8-compile-cache/2.3.0:

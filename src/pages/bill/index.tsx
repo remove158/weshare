@@ -1,15 +1,21 @@
+import AlertCopy from "@components/AlertCopy";
+import BackDrop from "@components/Backdrop";
+import BillHeader from "@components/BillHeader";
+import BillStats from "@components/BillStats";
+import Orders from "@components/Orders";
+import HomeIcon from "@mui/icons-material/Home";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import SegmentIcon from "@mui/icons-material/Segment";
+import { Box, Container, Grid, Hidden, Paper, Snackbar } from "@mui/material";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import { useBillQuery } from "@utils/api";
+import { getBillFullPath } from "@utils/route";
+import { addRecentBills } from "@utils/storage";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useBillQuery } from "@utils/api";
 import React, { useEffect, useState } from "react";
-import BackDrop from "@components/Backdrop";
-import { addRecentBills } from "@utils/storage";
-import AlertCopy from "@components/AlertCopy";
-import { Container, Snackbar } from "@mui/material";
-import { getBillFullPath } from "@utils/route";
-import BillHeader from "@components/BillHeader";
-import BillStats from "@components/BillStats";
 
 //-------------------------------------------------------------------------//
 // summary :  component types section
@@ -18,6 +24,14 @@ interface Props {
 	query: ParsedUrlQuery;
 }
 
+interface TabPaneProps {
+	children: any;
+	value: number;
+	index: number;
+}
+const TabPane = ({ children, value, index }: TabPaneProps) => {
+	return value === index ? children : "";
+};
 //-------------------------------------------------------------------------//
 // summary : component function section
 //-------------------------------------------------------------------------//
@@ -73,6 +87,45 @@ const Index: React.FC<Props> = ({ query }) => {
 				message="Copied to clipboard"
 			/>
 			<BillStats bill={data} />
+			<Hidden mdUp>
+				<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+					{/* <TabPane value={value} index={1}>
+						<People id={id} bill={data} />
+					</TabPane> */}
+					<TabPane value={value} index={2}>
+						<Orders id={id as string} bill={data} />
+					</TabPane>
+					<Paper
+						sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+						elevation={3}
+					>
+						<BottomNavigation
+							showLabels
+							value={value}
+							onChange={(_, newValue) => {
+								setValue(newValue);
+							}}
+						>
+							<BottomNavigationAction
+								label="Home"
+								icon={<HomeIcon />}
+								onClick={() => router.push("/")}
+							/>
+							<BottomNavigationAction label="People" icon={<PeopleAltIcon />} />
+							<BottomNavigationAction label="Orders" icon={<SegmentIcon />} />
+						</BottomNavigation>
+					</Paper>
+				</Box>
+			</Hidden>
+
+			<Hidden mdDown>
+				<Grid container spacing={8}>
+					<Grid item xs>
+						<Orders id={id as string} bill={data} />
+					</Grid>
+					<Grid item>{/* <People id={id} bill={data} /> */}</Grid>
+				</Grid>
+			</Hidden>
 		</Container>
 	);
 };
