@@ -1,10 +1,11 @@
 import UpdateItemModal from "@components/UpdateItemModal";
-import { Chip, Grid } from "@mui/material";
+import { Chip, Grid, IconButton } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { getColor } from "@utils/random";
 import { useState } from "react";
 import { Bill } from "types";
+import EditIcon from "@mui/icons-material/Edit";
 interface Column {
 	id: string;
 	label: string;
@@ -75,6 +76,11 @@ const OrderRow: React.FC<Props> = ({ row, columns, idx, bill, id }) => {
 						</TableCell>
 					);
 				})}
+				<TableCell>
+					<IconButton>
+						<EditIcon />
+					</IconButton>
+				</TableCell>
 			</TableRow>
 
 			{open && (

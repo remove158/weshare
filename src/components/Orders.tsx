@@ -1,3 +1,4 @@
+import OrderRow from "@components/OrderRow";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { Button, Grid, TextField } from "@mui/material";
 import Table from "@mui/material/Table";
@@ -6,11 +7,10 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import * as React from "react";
-import { v4 as uuidv4 } from "uuid";
 import { updateOrders } from "@utils/api";
-import OrderRow from "@components/OrderRow";
-import { Bill, Order, PaidUser } from "types";
+import * as React from "react";
+import { Bill, Order } from "types";
+import { v4 as uuidv4 } from "uuid";
 const columns = [
 	{ id: "name", label: "ชื่อรายการ" },
 	{
@@ -21,7 +21,6 @@ const columns = [
 	{
 		id: "avg_price",
 		label: "คนละ",
-		align: "right",
 		format: (value: number) => value.toLocaleString("en-US"),
 	},
 ];
@@ -93,10 +92,9 @@ const Orders: React.FC<Props> = ({ id, bill }) => {
 					<TableHead>
 						<TableRow>
 							{columns.map((column) => (
-								<TableCell key={column.id} align={column.align as any}>
-									{column.label}
-								</TableCell>
+								<TableCell key={column.id}>{column.label}</TableCell>
 							))}
+							<TableCell width={4} />
 						</TableRow>
 					</TableHead>
 					<TableBody>
