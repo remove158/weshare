@@ -24,20 +24,18 @@ function Row({ row, idx }: RowProps) {
 
 	return (
 		<React.Fragment>
-			<TableRow
-				hover
-				sx={{ "& > *": { borderBottom: "unset" } }}
-				onClick={() => setOpen(!open)}
-			>
+			<TableRow hover sx={{ "& > *": { borderBottom: "unset" } }}>
 				<TableCell>
-					<IconButton aria-label="expand row" size="small">
+					<IconButton
+						aria-label="expand row"
+						size="small"
+						onClick={() => setOpen(!open)}
+					>
 						{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton>
 				</TableCell>
 				<TableCell component="th" scope="row">
-					<Typography component="div" color={getColor(idx)}>
-						{row.name}
-					</Typography>
+					<Typography component="span">{row.name}</Typography>
 				</TableCell>
 				<TableCell align="right">
 					{row.totalPrice.toLocaleString("en-US")}
@@ -136,7 +134,7 @@ const Users = ({ id, bill }: UsersProps) => {
 					</TableHead>
 					<TableBody>
 						{data.reverse().map((row, idx) => (
-							<Row key={idx} row={row} idx={idx} />
+							<Row key={idx} row={row} idx={data.length - idx - 1} />
 						))}
 					</TableBody>
 				</Table>
