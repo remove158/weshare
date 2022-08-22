@@ -61,9 +61,11 @@ const Orders: React.FC<Props> = ({ id, bill }) => {
 	const [text, setText] = React.useState("");
 	const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
-		await addOrder(bill.orders, text, id);
-		setText("");
-		setOpen(true);
+		if (text) {
+			await addOrder(bill.orders, text, id);
+			setText("");
+			setOpen(true);
+		}
 	};
 	return (
 		<>
@@ -75,6 +77,7 @@ const Orders: React.FC<Props> = ({ id, bill }) => {
 							value={text}
 							fullWidth
 							variant="standard"
+							required
 							onChange={(e) => setText(e.target.value)}
 						/>
 					</Grid>
