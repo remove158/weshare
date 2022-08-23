@@ -13,9 +13,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { useBillQuery } from "@utils/api";
 import { getBillFullPath } from "@utils/route";
 import { addRecentBills } from "@utils/storage";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
 import React, { useEffect, useState } from "react";
 
 //-------------------------------------------------------------------------//

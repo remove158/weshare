@@ -55,7 +55,7 @@ const Home: NextPage = () => {
 								</Button>
 							) : (
 								<Button variant="outlined" onClick={createBillAndRedirect}>
-									{"่Create bill"}
+									Create bill
 								</Button>
 							)}
 						</Stack>
