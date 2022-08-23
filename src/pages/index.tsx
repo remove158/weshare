@@ -33,7 +33,7 @@ const Home: NextPage = () => {
 							color="text.primary"
 							gutterBottom
 						>
-							สร้างบิลใหม่
+							หารบิลกับเพื่อน
 						</Typography>
 						<Typography
 							variant="h5"
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
 								</Button>
 							) : (
 								<Button variant="outlined" onClick={createBillAndRedirect}>
-									{"LET'S SHARE"}
+									{"่Create bill"}
 								</Button>
 							)}
 						</Stack>
