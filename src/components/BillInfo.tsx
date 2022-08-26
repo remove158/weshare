@@ -84,7 +84,7 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 				autoHideDuration={2000}
 				message="Copied to clipboard"
 			/>
-			<BillStats bill={data} />
+			<BillStats bill={data} id={id} />
 			<Hidden mdUp>
 				<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
 					<TabPane value={value} index={1}>

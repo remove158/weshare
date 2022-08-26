@@ -17,6 +17,7 @@ export type User = {
 export type Bill = {
 	title: string;
 	orders: Order[];
+	promptpay: string;
 	users: User[];
 	updatedAt: Timestamp;
 	createdAt: Timestamp;

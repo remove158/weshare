@@ -1,7 +1,11 @@
 import { db } from "@utils/firebase";
 import {
-	addDoc, collection,
-	doc, QueryDocumentSnapshot, serverTimestamp, updateDoc
+	addDoc,
+	collection,
+	doc,
+	QueryDocumentSnapshot,
+	serverTimestamp,
+	updateDoc,
 } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
@@ -9,13 +13,19 @@ import { Bill, Order, User } from "types";
 const BILL_COLLECTION_NAME = "bills";
 const BILL_COLLECTION = collection(db, BILL_COLLECTION_NAME);
 
-const updateBillFunc = updateDoc<Bill>
+const updateBillFunc = updateDoc<Bill>;
 
 const generateDefaultBill = () => {
 	const time = serverTimestamp();
-	const orders  = [] as Order[]
-	const users = [] as User[]
-	return { orders , users ,createdAt: time, updatedAt: time } as Bill;
+	const orders = [] as Order[];
+	const users = [] as User[];
+	return {
+		orders,
+		users,
+		createdAt: time,
+		updatedAt: time,
+		promptpay: "012-345-6789",
+	} as Bill;
 };
 
 const getBillRef = (id: string) =>
@@ -30,19 +40,25 @@ export const createBill = async ({ setLoading }: CreateBillArgs) => {
 	return id;
 };
 
-
-
 const converter = {
 	toFirestore: (data: Bill) => data,
 	fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Bill,
 };
 
-export const useBillQuery = (id: string) =>  useDocumentData<Bill>(getBillRef(id));
+export const useBillQuery = (id: string) =>
+	useDocumentData<Bill>(getBillRef(id));
 
 export const updateOrders = async (id: string, orders: Order[]) => {
 	const billRef = getBillRef(id);
 	await updateBillFunc(billRef, {
 		orders,
+		updatedAt: serverTimestamp(),
+	});
+};
+export const updatePromptpay = async (id: string, promptpay: string) => {
+	const billRef = getBillRef(id);
+	await updateBillFunc(billRef, {
+		promptpay,
 		updatedAt: serverTimestamp(),
 	});
 };
