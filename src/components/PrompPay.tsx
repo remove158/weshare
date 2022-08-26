@@ -46,7 +46,11 @@ const PrompPay: React.FC<Props> = ({ id, bill }) => {
 				alignItems="center"
 				onClick={handleClickOpen}
 			>
-				<QRCode value={qrCode} style={{ height: "82px", width: "82px" }} />
+				<QRCode
+					value={qrCode}
+					style={{ width: " 100%", maxWidth: "72px", maxHeight: "72px" }}
+				/>
+
 				<Stack direction="row" alignItems="center">
 					<Typography variant="subtitle2">{bill.promptpay}</Typography>
 				</Stack>
