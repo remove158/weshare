@@ -50,7 +50,7 @@ function Row({ row, idx, bill, id }: RowProps) {
 				>
 					<Typography component="span">
 						{row.name}{" "}
-						{!row.isPaid && (
+						{row.isPaid && (
 							<Chip
 								size="small"
 								variant="outlined"
