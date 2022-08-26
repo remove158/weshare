@@ -46,9 +46,8 @@ function Row({ row, idx, bill, id }: RowProps) {
 					component="th"
 					scope="row"
 					sx={{ cursor: "pointer" }}
-					onClick={() => updatePaidStatus(!row.isPaid)}
 				>
-					<Typography component="span">
+					<Typography component="span" onClick={() => updatePaidStatus(!row.isPaid)}>
 						{row.name}{" "}
 						{row.isPaid && (
 							<Chip
