@@ -26,11 +26,11 @@ const BillStats: React.FC<Props> = ({ bill, id }) => {
 			spacing={1}
 		>
 			<Stack direction="row" spacing={2} sx={{ mb: 4 }} color="gray">
-				<Stack>
+				<Stack justifyContent="space-between">
 					<Typography variant="h6">จำนวนคน</Typography>
 					<Typography variant="h3">{personCount}</Typography>
 				</Stack>
-				<Stack>
+				<Stack justifyContent="space-between">
 					<Typography variant="h6">ราคารวม</Typography>
 					<Typography variant="h3">
 						{totalPrice.toLocaleString("en-US")}
