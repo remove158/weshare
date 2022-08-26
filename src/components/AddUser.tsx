@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const addPeople = (peoples: User[], name: string, id: string) => {
 	const item_id = uuidv4();
-	const tmp = [...peoples, { id: item_id, name }];
+	const tmp = [...peoples, { id: item_id, name, isPaid: false }];
 	updateUsers(id, tmp);
 };
 const deletePeople = (peoples: User[], item_id: string, id: string) => {
