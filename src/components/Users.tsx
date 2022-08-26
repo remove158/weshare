@@ -1,6 +1,7 @@
 import AddPeople from "@components/AddUser";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { Chip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -11,30 +12,54 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import { updateUsers } from "@utils/api";
 import * as React from "react";
 import { Bill, Order, User } from "types";
 
 interface RowProps {
 	idx: number;
 	row: DataType;
+	bill: Bill;
+	id: string;
 }
-function Row({ row, idx }: RowProps) {
+function Row({ row, idx, bill, id }: RowProps) {
 	const [open, setOpen] = React.useState(false);
 
+	const updatePaidStatus = (isPaid: boolean) => {
+		const users = bill.users.map((user) => {
+			if (user.id === row.id) {
+				user.isPaid = isPaid;
+			}
+			return user;
+		});
+		updateUsers(id, users);
+	};
 	return (
 		<React.Fragment>
-			<TableRow
-				hover
-				onClick={() => setOpen(!open)}
-				sx={{ "&>*": { borderBottom: "unset" } }}
-			>
-				<TableCell>
+			<TableRow hover sx={{ "&>*": { borderBottom: "unset" } }}>
+				<TableCell onClick={() => setOpen(!open)}>
 					<IconButton aria-label="expand row" size="small">
 						{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton>
 				</TableCell>
-				<TableCell component="th" scope="row">
-					<Typography component="span">{row.name}</Typography>
+				<TableCell
+					component="th"
+					scope="row"
+					sx={{ cursor: "pointer" }}
+					onClick={() => updatePaidStatus(!row.isPaid)}
+				>
+					<Typography component="span">
+						{row.name}{" "}
+						{!row.isPaid && (
+							<Chip
+								size="small"
+								variant="outlined"
+								label={"จ่ายแล้ว"}
+								color="success"
+								sx={{ m: 0.5 }}
+							/>
+						)}
+					</Typography>
 				</TableCell>
 				<TableCell align="right" sx={{ borderBottom: "unset" }}>
 					{row.totalPrice.toLocaleString("en-US")}
@@ -86,6 +111,7 @@ interface DataType {
 	id: string;
 	name: string;
 	totalPrice: number;
+	isPaid: boolean;
 	orders: {
 		name: string;
 		price: number;
@@ -93,7 +119,7 @@ interface DataType {
 	}[];
 }
 const calculateData = (users: User[], orders: Order[]) => {
-	return users.map(({ id, name }) => {
+	return users.map(({ id, name, isPaid }) => {
 		const interestOrder: Order[] = orders.filter((o) =>
 			o.paidUsers.some((o_id) => o_id.id === id)
 		);
@@ -108,7 +134,7 @@ const calculateData = (users: User[], orders: Order[]) => {
 				paid: price / p.length,
 			})
 		);
-		return { id, name, totalPrice, orders: tmp_orders };
+		return { id, name, totalPrice, isPaid, orders: tmp_orders };
 	});
 };
 
@@ -133,7 +159,13 @@ const Users = ({ id, bill }: UsersProps) => {
 					</TableHead>
 					<TableBody>
 						{data.reverse().map((row, idx) => (
-							<Row key={idx} row={row} idx={data.length - idx - 1} />
+							<Row
+								key={idx}
+								row={row}
+								idx={data.length - idx - 1}
+								bill={bill}
+								id={id}
+							/>
 						))}
 					</TableBody>
 				</Table>

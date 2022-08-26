@@ -59,7 +59,7 @@ const PrompPay: React.FC<Props> = ({ id, bill }) => {
 				<DialogTitle>พร้อมเพย์</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						แก้ไขหมายเลข Promptpay ง่ายๆ ให้เพื่อนสแกนได้เลยทันที
+						เพิ่มหมายเลข Promptpay ง่ายๆ ให้เพื่อนสแกนได้เลยทันที
 					</DialogContentText>
 					<TextField
 						autoFocus

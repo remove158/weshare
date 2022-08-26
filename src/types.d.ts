@@ -1,6 +1,5 @@
 export type PaidUser = {
 	id: string;
-	paid: boolean;
 };
 export type Order = {
 	id: string;
@@ -12,6 +11,7 @@ export type Order = {
 export type User = {
 	id: string;
 	name: string;
+	isPaid: boolean;
 };
 
 export type Bill = {
