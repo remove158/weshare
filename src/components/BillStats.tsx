@@ -24,7 +24,7 @@ const BillStats: React.FC<Props> = ({ bill, id }) => {
 			justifyContent="space-between"
 			alignItems="center"
 		>
-			<Stack direction="row" spacing={4} sx={{ mb: 4 }} color="gray">
+			<Stack direction="row" spacing={2} sx={{ mb: 4 }} color="gray">
 				<Stack>
 					<Typography variant="h5">จำนวนคน</Typography>
 					<Typography variant="h3">{personCount}</Typography>
