@@ -1,9 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## หารบิลกับเพื่อน
+หารบิลกับเพื่อน เราช่วยให้คุณสามารถจัดแจงค่าใช้จ่ายได้อย่างง่ายดาย
 
-## Getting Started
+[เข้าสู่เว็บไซต์](!https://bill.piyaphat.com)
 
-First, run the development server:
+## ฟังค์ชั่น 
+[X] แชร์ให้เพื่อนช่วยดู - แก้ไขได้แบบเรียลไทม์
+[X] เพิ่มรายการอาหาร
+[x] แก้ไขรายการอาหาร
+[x] ลบรายการอาหาร
+[X] คำนวณค่าใช้จ่ายแยกรายบุคคล
+[X] แยกบุคคลด้วยสีทีแตกต่างกัน
+[X] แปะ QR-Code Promptpay
 
-```bash
-pnpm dev
-```
+## Preview
