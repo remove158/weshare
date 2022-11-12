@@ -24,7 +24,7 @@ interface Props {
 // summary : component function section
 //-------------------------------------------------------------------------//
 const PrompPay: React.FC<Props> = ({ id, bill }) => {
-	const [qrCode, setqrCode] = useState("sample");
+	const [qrCode, setqrCode] = useState(generatePayload(bill.promptpay, {}));
 	const [open, setOpen] = React.useState(false);
 	const [text, setText] = useState(bill.promptpay || "");
 
