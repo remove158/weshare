@@ -44,7 +44,7 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 	const [link, setLink] = useState("");
 	useEffect(() => {
 		setLink(getBillFullPath(id));
-	}, [router.isReady]);
+	}, [router.isReady, router]);
 	useEffect(() => {
 		if (data) {
 			if (typeof window !== "undefined") {
@@ -109,8 +109,26 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 								icon={<HomeIcon />}
 								onClick={() => router.push("/")}
 							/>
-							<BottomNavigationAction label="People" icon={<PeopleAltIcon />} />
-							<BottomNavigationAction label="Orders" icon={<SegmentIcon />} />
+							<BottomNavigationAction
+								label="People"
+								icon={<PeopleAltIcon />}
+								onClick={() =>
+									router.replace({
+										pathname: `/bill`,
+										query: { id, page: 1 },
+									})
+								}
+							/>
+							<BottomNavigationAction
+								label="Orders"
+								icon={<SegmentIcon />}
+								onClick={() =>
+									router.replace({
+										pathname: `/bill`,
+										query: { id, page: 2 },
+									})
+								}
+							/>
 						</BottomNavigation>
 					</Paper>
 				</Box>
