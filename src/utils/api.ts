@@ -24,7 +24,7 @@ const generateDefaultBill = () => {
 		users,
 		createdAt: time,
 		updatedAt: time,
-		promptpay: "123-456-7890",
+		promptpay: "000-000-0000",
 	} as Bill;
 };
 
