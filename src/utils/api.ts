@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import axios from 'axios'
 import { Bill, Order, User } from "types";
 const BILL_COLLECTION_NAME = "bills";
 const BILL_COLLECTION = collection(db, BILL_COLLECTION_NAME);
@@ -83,3 +84,17 @@ export const updateBill = async (
 		updatedAt: serverTimestamp(),
 	});
 };
+
+export const get_items = (file : File) => {
+	const formData = new FormData();
+    formData.append('file', file);
+    formData.append('api_key', 'TEST');
+    formData.append('recognizer', 'auto');
+    formData.append('ref_no', 'ocr_nodejs_123');
+	const items = axios.post('https://ocr.asprise.com/api/v1/receipt',formData).then( response => {
+		return response?.data?.receipts[0]?.items ?? []
+	}).catch( () => [])
+
+	return items
+
+}

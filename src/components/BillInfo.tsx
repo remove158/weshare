@@ -87,10 +87,10 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 			<BillStats bill={data} id={id} />
 			<Hidden mdUp>
 				<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-					<TabPane value={value} index={0}>
+					<TabPane value={value} index={1}>
 						<Users id={id} bill={data} />
 					</TabPane>
-					<TabPane value={value} index={1}>
+					<TabPane value={value} index={0}>
 						<Orders id={id} bill={data} />
 					</TabPane>
 					<Paper
@@ -105,8 +105,8 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 							}}
 						>
 							<BottomNavigationAction
-								label="People"
-								icon={<PeopleAltIcon />}
+								label="Orders"
+								icon={<SegmentIcon />}
 								onClick={() =>
 									router.replace({
 										pathname: `/bill`,
@@ -114,16 +114,16 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 									})
 								}
 							/>
-							<BottomNavigationAction
-								label="Orders"
-								icon={<SegmentIcon />}
-								onClick={() =>
-									router.replace({
-										pathname: `/bill`,
-										query: { id, page: 1 },
-									})
-								}
-							/>
+								<BottomNavigationAction
+									label="People"
+									icon={<PeopleAltIcon />}
+									onClick={() =>
+										router.replace({
+											pathname: `/bill`,
+											query: { id, page: 1 },
+										})
+									}
+								/>
 						</BottomNavigation>
 					</Paper>
 				</Box>
