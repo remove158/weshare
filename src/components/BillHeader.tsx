@@ -66,7 +66,7 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 					</IconButton>
 				</CopyToClipboard>
 			</Stack>
-			<input type="file" onChange={getBillInfo} />
+			<input style={{ paddingBottom:"2em"}} type="file" onChange={getBillInfo} />
 		</>
 	);
 };
