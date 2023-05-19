@@ -70,7 +70,7 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 		return <BackDrop open={true} />;
 	}
 	return (
-		<Container maxWidth={"lg"} sx={{ padding: 2 }}>
+		<Container maxWidth={"lg"} sx={{ padding: 2 , position:"relative", minHeight:"100vh"}}  >
 			<AlertCopy
 				isAlert={isAlert}
 				closeAlert={closeAlert}

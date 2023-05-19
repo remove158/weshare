@@ -1,4 +1,4 @@
-import { db } from "@utils/firebase";
+import { db, storage } from "@utils/firebase";
 import {
 	addDoc,
 	collection,
@@ -11,6 +11,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import axios from 'axios'
 import { Bill, Order, User } from "types";
+import { ref, uploadBytes } from "firebase/storage";
 const BILL_COLLECTION_NAME = "bills";
 const BILL_COLLECTION = collection(db, BILL_COLLECTION_NAME);
 
@@ -85,12 +86,21 @@ export const updateBill = async (
 	});
 };
 
+export const uploadFirebase = async(file: File, id: string) => {
+	const storageRef = ref(storage, `bills/${id}`);
+	// 'file' comes from the Blob or File API
+	return uploadBytes(storageRef, file).then((snapshot) => {
+	console.log('Uploaded a blob or file!');
+	});
+}
+
 export const get_items = (file : File) => {
 	const formData = new FormData();
     formData.append('file', file);
     formData.append('api_key', 'TEST');
     formData.append('recognizer', 'auto');
     formData.append('ref_no', 'ocr_nodejs_123');
+
 	const items = axios.post('https://ocr.asprise.com/api/v1/receipt',formData).then( response => {
 		return response?.data?.receipts[0]?.items ?? []
 	}).catch( (err) => {
