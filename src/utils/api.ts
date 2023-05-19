@@ -86,6 +86,15 @@ export const updateBill = async (
 	});
 };
 
+export const resetBill = async (id: string) => {
+	const billRef = getBillRef(id);
+	await updateBillFunc(billRef, {
+		users: [],
+		orders: [],
+		updatedAt: serverTimestamp(),
+	});
+}
+
 export const uploadFirebase = async (file: File, id: string) => {
 	const storageRef = ref(storage, `bills/${id}`);
 	// 'file' comes from the Blob or File API
