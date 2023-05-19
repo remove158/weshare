@@ -114,7 +114,7 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 			curOrder.paidUsers = lastChange;
 		}
 		setOrderPeople(curOrder, false);
-	}, [paid]);
+	}, [paid, orders, setOrderPeople]);
 
 	React.useEffect(() => {
 		const curOrder = orders[idx];

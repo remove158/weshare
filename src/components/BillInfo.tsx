@@ -44,7 +44,7 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 	const [link, setLink] = useState("");
 	useEffect(() => {
 		setLink(getBillFullPath(id));
-	}, [router.isReady, router]);
+	}, [router.isReady, router, id]);
 	useEffect(() => {
 		if (data) {
 			if (typeof window !== "undefined") {
@@ -53,7 +53,7 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 			}
 			addRecentBills(id);
 		}
-	}, [data]);
+	}, [data, id]);
 	const closeAlert = () => {
 		setAlert(false);
 		window.localStorage.setItem(id, "false");

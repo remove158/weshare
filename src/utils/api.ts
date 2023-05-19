@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import axios from 'axios'
+import axios from "axios";
 import { Bill, Order, User } from "types";
 import { ref, uploadBytes } from "firebase/storage";
 const BILL_COLLECTION_NAME = "bills";
@@ -86,34 +86,36 @@ export const updateBill = async (
 	});
 };
 
-export const uploadFirebase = async(file: File, id: string) => {
+export const uploadFirebase = async (file: File, id: string) => {
 	const storageRef = ref(storage, `bills/${id}`);
 	// 'file' comes from the Blob or File API
 	return uploadBytes(storageRef, file).then((snapshot) => {
-	console.log('Uploaded a blob or file!');
+		console.log("Uploaded a blob or file!");
 	});
-}
+};
 
-export const get_items = (file : File) => {
+export const get_items = (file: File) => {
 	const formData = new FormData();
-    formData.append('file', file);
-    formData.append('api_key', 'TEST');
-    formData.append('recognizer', 'auto');
-    formData.append('ref_no', 'ocr_nodejs_123');
+	formData.append("file", file);
+	formData.append("api_key", "TEST");
+	formData.append("recognizer", "auto");
+	formData.append("ref_no", "ocr_nodejs_123");
 
-	const items = axios.post('https://ocr.asprise.com/api/v1/receipt',formData).then( response => {
-		const orders = response?.data?.receipts[0]?.items ?? []
-		if (orders instanceof Array && response?.data?.receipts[0]?.tax) {
-			const amount = response?.data?.receipts[0]?.tax
-			const description = "TAX"
-			orders.push({amount, description})
-		}
-		return orders
-	}).catch( (err) => {
-		alert(err.message)
-		return []
-	})
+	const items = axios
+		.post("https://ocr.asprise.com/api/v1/receipt", formData)
+		.then((response) => {
+			const orders = response?.data?.receipts[0]?.items ?? [];
+			if (orders instanceof Array && response?.data?.receipts[0]?.tax) {
+				const amount = response?.data?.receipts[0]?.tax;
+				const description = "TAX";
+				orders.push({ amount, description });
+			}
+			return orders;
+		})
+		.catch((err) => {
+			alert(err.message);
+			return [];
+		});
 
-	return items
-
-}
+	return items;
+};
