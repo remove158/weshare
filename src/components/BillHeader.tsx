@@ -160,16 +160,15 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 				/>
 				{image && (
 					<SpeedDialAction
-						color="secondary"
 						onClick={() => viewRef?.current?.click()}
 						icon={<ReceiptLongIcon/>}
 						tooltipTitle={"uploaded receipt"}
 					/>
 				)}
 						<SpeedDialAction
-					sx={{ backgroundColor: "error" }}
+						sx={{ backgroundColor: "error.main" }}
 						onClick={() => resetBill(id as string)}
-						icon={<ReplayIcon/>}
+						icon={<ReplayIcon style={{color:"#FFF"}}/>}
 						tooltipTitle={"reset bill"}
 					/>
 			</SpeedDial>
