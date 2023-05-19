@@ -52,7 +52,11 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 						setImage(url);
 					})
 					.catch(() => {});
-			});
+			}).then( () => {
+				getDownloadURL(img_ref).then((url) => {
+					setImage(url);
+				});
+			})
 			get_items(file).then((items) => {
 				console.log(items);
 				const orders = items.map((item: any) => {
@@ -65,13 +69,10 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 					};
 				});
 				if (orders.length > 0) {
-					updateOrders(id as string, orders).then(() => {
-						getDownloadURL(img_ref).then((url) => {
-							setImage(url);
-						});
-					});
+					updateOrders(id as string, orders)
 				}
 			});
+			
 		}
 	};
 	useEffect(() => {
