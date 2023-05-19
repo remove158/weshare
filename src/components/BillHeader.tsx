@@ -113,6 +113,7 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 			>
 				<input
 					type="file"
+					accept="image/*"
 					style={{ display: "none" }}
 					ref={fileInputRef}
 					onChange={handleFileSelected}
