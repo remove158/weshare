@@ -11,7 +11,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Link as LinkIcon } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import { get_items, updateOrders, uploadFirebase } from "@utils/api";
+import { get_items, resetBill, updateOrders, uploadFirebase } from "@utils/api";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref } from "firebase/storage";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
@@ -19,6 +19,8 @@ import { Input } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { storage } from "@utils/firebase";
 import BackDrop from "./Backdrop";
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ReplayIcon from '@mui/icons-material/Replay';
 //-------------------------------------------------------------------------//
 // summary :  component types section
 //-------------------------------------------------------------------------//
@@ -136,6 +138,7 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 				sx={{ position: "fixed", bottom: 72, right: 24 }}
 				icon={<SpeedDialIcon />}
 			>
+			
 				<input
 					type="file"
 					accept="image/*"
@@ -157,11 +160,18 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 				/>
 				{image && (
 					<SpeedDialAction
+						color="secondary"
 						onClick={() => viewRef?.current?.click()}
-						icon={<FileDownloadIcon />}
-						tooltipTitle={"download"}
+						icon={<ReceiptLongIcon/>}
+						tooltipTitle={"uploaded receipt"}
 					/>
 				)}
+						<SpeedDialAction
+					sx={{ backgroundColor: "error" }}
+						onClick={() => resetBill(id as string)}
+						icon={<ReplayIcon/>}
+						tooltipTitle={"reset bill"}
+					/>
 			</SpeedDial>
 		</>
 	);
