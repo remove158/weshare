@@ -38,8 +38,8 @@ const TabPane = ({ children, value, index }: TabPaneProps) => {
 const BillInfo: React.FC<Props> = ({ id, page }) => {
 	const router = useRouter();
 	const [isAlert, setAlert] = useState(false);
-	const [data, loading, err] = useBillQuery(id || "-");
-	const [value, setValue] = useState(parseInt(page));
+	const [data, loading, err] = useBillQuery(id ?? "-");
+	const [value, setValue] = useState(parseInt(page) ?? 0);
 	const [isCopy, setCopy] = useState(false);
 	const [link, setLink] = useState("");
 	useEffect(() => {
@@ -70,7 +70,10 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 		return <BackDrop open={true} />;
 	}
 	return (
-		<Container maxWidth={"lg"} sx={{ padding: 2 , position:"relative", minHeight:"100vh"}}  >
+		<Container
+			maxWidth={"lg"}
+			sx={{ padding: 2, position: "relative", minHeight: "100vh" }}
+		>
 			<AlertCopy
 				isAlert={isAlert}
 				closeAlert={closeAlert}
@@ -87,10 +90,10 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 			<BillStats bill={data} id={id} />
 			<Hidden mdUp>
 				<Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-					<TabPane value={value} index={1}>
+					<TabPane value={value} index={0}>
 						<Users id={id} bill={data} />
 					</TabPane>
-					<TabPane value={value} index={0}>
+					<TabPane value={value} index={1}>
 						<Orders id={id} bill={data} />
 					</TabPane>
 					<Paper
@@ -105,8 +108,8 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 							}}
 						>
 							<BottomNavigationAction
-								label="Orders"
-								icon={<SegmentIcon />}
+								label="People"
+								icon={<PeopleAltIcon />}
 								onClick={() =>
 									router.replace({
 										pathname: `/bill`,
@@ -114,16 +117,16 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 									})
 								}
 							/>
-								<BottomNavigationAction
-									label="People"
-									icon={<PeopleAltIcon />}
-									onClick={() =>
-										router.replace({
-											pathname: `/bill`,
-											query: { id, page: 1 },
-										})
-									}
-								/>
+							<BottomNavigationAction
+								label="Orders"
+								icon={<SegmentIcon />}
+								onClick={() =>
+									router.replace({
+										pathname: `/bill`,
+										query: { id, page: 1 },
+									})
+								}
+							/>
 						</BottomNavigation>
 					</Paper>
 				</Box>

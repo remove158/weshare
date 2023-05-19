@@ -1,4 +1,5 @@
 import {
+	Container,
 	IconButton,
 	Link,
 	SpeedDial,
@@ -21,6 +22,7 @@ import { storage } from "@utils/firebase";
 import BackDrop from "./Backdrop";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import ReplayIcon from "@mui/icons-material/Replay";
+import zIndex from "@mui/material/styles/zIndex";
 //-------------------------------------------------------------------------//
 // summary :  component types section
 //-------------------------------------------------------------------------//
@@ -107,8 +109,7 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 			.catch(() => {});
 	}, [id]);
 	if (isLoading) return <BackDrop open={isLoading} />;
-	return (
-		<>
+	return (<>
 			<Stack
 				direction="row"
 				justifyContent="space-between"
@@ -132,46 +133,54 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 						<LinkIcon color="info" />
 					</IconButton>
 				</CopyToClipboard>
-			</Stack>
-			<SpeedDial
-				ariaLabel="SpeedDial basic example"
-				sx={{ position: "fixed", bottom: 72, right: 24 }}
-				icon={<SpeedDialIcon />}
-			>
-				<input
-					type="file"
-					accept="image/*"
-					style={{ display: "none" }}
-					ref={fileInputRef}
-					onChange={handleFileSelected}
-				/>
+			
+		</Stack>
+		<SpeedDial
+			ariaLabel="SpeedDial basic example"
+			sx={{
+				position: "fixed",
+				bottom: 80,
+				right: 16,
+				translateY: "-100%",
+				translateX: "-100%",
+				zIndex:10,
+			}}
+			icon={<SpeedDialIcon />}
+		>
+			<input
+				type="file"
+				accept="image/*"
+				style={{ display: "none" }}
+				ref={fileInputRef}
+				onChange={handleFileSelected}
+			/>
+			<SpeedDialAction
+				icon={<FileUploadIcon />}
+				onClick={handleFileUpload}
+				tooltipTitle={"upload file"}
+			/>
+			<a
+				href={image}
+				target="_blank"
+				rel="noreferrer"
+				style={{ display: "none" }}
+				ref={viewRef}
+			/>
+			{image && (
 				<SpeedDialAction
-					icon={<FileUploadIcon />}
-					onClick={handleFileUpload}
-					tooltipTitle={"upload file"}
+					onClick={() => viewRef?.current?.click()}
+					icon={<ReceiptLongIcon />}
+					tooltipTitle={"uploaded receipt"}
 				/>
-				<a
-					href={image}
-					target="_blank"
-					rel="noreferrer"
-					style={{ display: "none" }}
-					ref={viewRef}
-				/>
-				{image && (
-					<SpeedDialAction
-						onClick={() => viewRef?.current?.click()}
-						icon={<ReceiptLongIcon />}
-						tooltipTitle={"uploaded receipt"}
-					/>
-				)}
-				<SpeedDialAction
-					sx={{ backgroundColor: "error.main" }}
-					onClick={() => resetBill(id as string)}
-					icon={<ReplayIcon style={{ color: "#FFF" }} />}
-					tooltipTitle={"reset bill"}
-				/>
-			</SpeedDial>
-		</>
+			)}
+			<SpeedDialAction
+				sx={{ backgroundColor: "error.main" }}
+				onClick={() => resetBill(id as string)}
+				icon={<ReplayIcon style={{ color: "#FFF" }} />}
+				tooltipTitle={"reset bill"}
+			/>
+		</SpeedDial>
+	</>
 	);
 };
 

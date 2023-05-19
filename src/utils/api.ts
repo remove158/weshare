@@ -114,7 +114,7 @@ export const get_items = (file: File) => {
 		.post("https://ocr.asprise.com/api/v1/receipt", formData)
 		.then((response) => {
 			const orders = response?.data?.receipts[0]?.items ?? [];
-			if (orders instanceof Array && response?.data?.receipts[0]?.tax) {
+			if (orders instanceof Array && response?.data?.receipts[0]?.tax &&  response?.data?.receipts[0]?.total !==  response?.data?.receipts[0]?.subtotal) {
 				const amount = response?.data?.receipts[0]?.tax;
 				const description = "TAX";
 				orders.push({ amount, description });
