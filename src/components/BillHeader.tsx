@@ -19,8 +19,8 @@ import { Input } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { storage } from "@utils/firebase";
 import BackDrop from "./Backdrop";
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import ReplayIcon from '@mui/icons-material/Replay';
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import ReplayIcon from "@mui/icons-material/Replay";
 //-------------------------------------------------------------------------//
 // summary :  component types section
 //-------------------------------------------------------------------------//
@@ -138,7 +138,6 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 				sx={{ position: "fixed", bottom: 72, right: 24 }}
 				icon={<SpeedDialIcon />}
 			>
-			
 				<input
 					type="file"
 					accept="image/*"
@@ -161,16 +160,16 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 				{image && (
 					<SpeedDialAction
 						onClick={() => viewRef?.current?.click()}
-						icon={<ReceiptLongIcon/>}
+						icon={<ReceiptLongIcon />}
 						tooltipTitle={"uploaded receipt"}
 					/>
 				)}
-						<SpeedDialAction
-						sx={{ backgroundColor: "error.main" }}
-						onClick={() => resetBill(id as string)}
-						icon={<ReplayIcon style={{color:"#FFF"}}/>}
-						tooltipTitle={"reset bill"}
-					/>
+				<SpeedDialAction
+					sx={{ backgroundColor: "error.main" }}
+					onClick={() => resetBill(id as string)}
+					icon={<ReplayIcon style={{ color: "#FFF" }} />}
+					tooltipTitle={"reset bill"}
+				/>
 			</SpeedDial>
 		</>
 	);
