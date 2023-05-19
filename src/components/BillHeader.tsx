@@ -18,6 +18,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { Input } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { storage } from "@utils/firebase";
+import BackDrop from "./Backdrop";
 //-------------------------------------------------------------------------//
 // summary :  component types section
 //-------------------------------------------------------------------------//
@@ -34,6 +35,8 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 	const [image, setImage] = useState<string>("");
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const viewRef = useRef<HTMLAnchorElement>(null);
+	const [billFile, setFile] = useState<File | null>(null);
+	const [isLoading, setLoading] = useState(false);
 
 	const handleFileUpload = () => {
 		if (fileInputRef?.current?.click) {
@@ -43,21 +46,27 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 
 	const { id } = router.query;
 	const img_ref = ref(storage, `bills/${id}`);
-	const handleFileSelected = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleFileSelected = async (event: ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]; // Get the selected file
-		if (file) {
-			uploadFirebase(file, id as string).then(() => {
-				getDownloadURL(img_ref)
-					.then((url) => {
-						setImage(url);
-					})
-					.catch(() => {});
-			}).then( () => {
-				getDownloadURL(img_ref).then((url) => {
-					setImage(url);
-				});
-			})
-			get_items(file).then((items) => {
+		try {
+			setLoading(true);
+			if (file) {
+				await uploadFirebase(file, id as string);
+
+				const url = await getDownloadURL(img_ref);
+				setImage(url);
+
+				setFile(file);
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setLoading(false);
+		}
+	};
+	const applyImageOrders = () => {
+		if (billFile) {
+			get_items(billFile).then((items) => {
 				console.log(items);
 				const orders = items.map((item: any) => {
 					const id = uuidv4();
@@ -69,12 +78,25 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 					};
 				});
 				if (orders.length > 0) {
-					updateOrders(id as string, orders)
+					updateOrders(id as string, orders);
 				}
 			});
-			
 		}
 	};
+
+	useEffect(() => {
+		try {
+			setLoading(true);
+			if (billFile) {
+				applyImageOrders();
+			}
+		} catch {
+			// do nothing
+		} finally {
+			setLoading(false);
+		}
+	}, [billFile]);
+
 	useEffect(() => {
 		getDownloadURL(img_ref)
 			.then((url) => {
@@ -82,6 +104,7 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 			})
 			.catch(() => {});
 	}, [id]);
+	if (isLoading) return <BackDrop open={isLoading} />;
 	return (
 		<>
 			<Stack
@@ -96,6 +119,7 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 					variant="h4"
 					color="text.primary"
 					gutterBottom
+					sx={{ cursor: "pointer" }}
 					onClick={() => router.push("/")}
 				>
 					Share a Bill

@@ -102,7 +102,13 @@ export const get_items = (file : File) => {
     formData.append('ref_no', 'ocr_nodejs_123');
 
 	const items = axios.post('https://ocr.asprise.com/api/v1/receipt',formData).then( response => {
-		return response?.data?.receipts[0]?.items ?? []
+		const orders = response?.data?.receipts[0]?.items ?? []
+		if (orders instanceof Array && response?.data?.receipts[0]?.tax) {
+			const amount = response?.data?.receipts[0]?.tax
+			const description = "TAX"
+			orders.push({amount, description})
+		}
+		return orders
 	}).catch( (err) => {
 		alert(err.message)
 		return []

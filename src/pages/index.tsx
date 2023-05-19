@@ -15,6 +15,7 @@ const Home: NextPage = () => {
 		const id = await createBill({ setLoading });
 		router.push(createBillPath(id));
 	};
+	
 	return (
 		<Center>
 			<main>
