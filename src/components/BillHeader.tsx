@@ -151,6 +151,7 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess }) => {
 				<a
 					href={image}
 					target="_blank"
+					rel="noreferrer"
 					style={{ display: "none" }}
 					ref={viewRef}
 				/>
