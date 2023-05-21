@@ -20,15 +20,6 @@ const Home: NextPage = () => {
 	return (
 		<Center>
 			<main>
-		<Head>
-			<title>Share a Bill</title>
-			<meta
-				name="description"
-				content="หารบิลกับเพื่อน เราช่วยให้คุณสามารถจัดแจงค่าใช้จ่ายได้อย่างง่ายดาย"
-			/>
-			<meta name="theme-color" content="#2196f3" />
-			<link rel="icon" href="/favicon.ico" />
-		</Head>
 				<Box
 					sx={{
 						bgcolor: "background.paper",

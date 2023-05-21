@@ -12,7 +12,7 @@ interface Props {
 // summary : component function section
 //-------------------------------------------------------------------------//
 const MetaTags: React.FC<Props> = (props) => {
-	const name = `${props.name} - Share a Bill`
+	const name = `${props.name ?? "Home"} - Share a Bill`
 	return (
 		<Head>
 			<title>{name}</title>
