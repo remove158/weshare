@@ -5,7 +5,6 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { createBill } from "@utils/api";
 import { createBillPath } from "@utils/route";
 import type { NextPage } from "next";
-import { Head } from "next/document";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
