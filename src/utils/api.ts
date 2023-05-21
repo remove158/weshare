@@ -47,9 +47,10 @@ const converter = {
 	toFirestore: (data: Bill) => data,
 	fromFirestore: (snap: QueryDocumentSnapshot) => {
 		const result = snap.data()
-		if (!result['name']) {
-			result['name'] = "Title"
-		}
+		result['name'] = result['name'] ?? "Title"
+		result['paidUsers'] = result['paidUsers'] ?? []
+		
+
 		return result as Bill;
 	},
 };
