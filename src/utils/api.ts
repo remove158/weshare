@@ -22,6 +22,7 @@ const generateDefaultBill = () => {
 	const orders = [] as Order[];
 	const users = [] as User[];
 	return {
+		name: "Title",
 		orders,
 		users,
 		createdAt: time,
@@ -44,7 +45,13 @@ export const createBill = async ({ setLoading }: CreateBillArgs) => {
 
 const converter = {
 	toFirestore: (data: Bill) => data,
-	fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as Bill,
+	fromFirestore: (snap: QueryDocumentSnapshot) => {
+		const result = snap.data()
+		if (!result['name']) {
+			result['name'] = "Title"
+		}
+		return result as Bill;
+	},
 };
 
 export const useBillQuery = (id: string) =>
@@ -72,6 +79,14 @@ export const updateUsers = async (id: string, users: User[]) => {
 		updatedAt: serverTimestamp(),
 	});
 };
+
+export const updateName = async( id: string , name : string) => {
+	const billRef = getBillRef(id);
+	await updateBillFunc(billRef, {
+		name,
+		updatedAt: serverTimestamp(),
+	});
+}
 
 export const updateBill = async (
 	id: string,

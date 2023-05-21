@@ -15,6 +15,7 @@ export type User = {
 };
 
 export type Bill = {
+	name: string;
 	title: string;
 	orders: Order[];
 	promptpay: string;

@@ -15,6 +15,7 @@ import { getBillFullPath } from "@utils/route";
 import { addRecentBills } from "@utils/storage";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import MetaTags from "./MetaTags";
 
 //-------------------------------------------------------------------------//
 // summary :  component types section
@@ -74,13 +75,14 @@ const BillInfo: React.FC<Props> = ({ id, page }) => {
 			maxWidth={"lg"}
 			sx={{ padding: 2, position: "relative", minHeight: "100vh" }}
 		>
+			<MetaTags name={data.name} />
 			<AlertCopy
 				isAlert={isAlert}
 				closeAlert={closeAlert}
 				onCopySuccess={onCopySuccess}
 				link={link}
 			/>
-			<BillHeader onCopySuccess={onCopySuccess} link={link} />
+			<BillHeader onCopySuccess={onCopySuccess} link={link} bill={data} />
 			<Snackbar
 				open={isCopy}
 				onClose={() => setCopy(false)}

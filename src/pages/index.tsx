@@ -5,6 +5,7 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { createBill } from "@utils/api";
 import { createBillPath } from "@utils/route";
 import type { NextPage } from "next";
+import { Head } from "next/document";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -19,6 +20,15 @@ const Home: NextPage = () => {
 	return (
 		<Center>
 			<main>
+		<Head>
+			<title>Share a Bill</title>
+			<meta
+				name="description"
+				content="หารบิลกับเพื่อน เราช่วยให้คุณสามารถจัดแจงค่าใช้จ่ายได้อย่างง่ายดาย"
+			/>
+			<meta name="theme-color" content="#2196f3" />
+			<link rel="icon" href="/favicon.ico" />
+		</Head>
 				<Box
 					sx={{
 						bgcolor: "background.paper",

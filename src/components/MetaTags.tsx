@@ -4,15 +4,18 @@ import React from "react";
 //-------------------------------------------------------------------------//
 // summary :  component types section
 //-------------------------------------------------------------------------//
-interface Props {}
+interface Props {
+	name ?: string
+}
 
 //-------------------------------------------------------------------------//
 // summary : component function section
 //-------------------------------------------------------------------------//
 const MetaTags: React.FC<Props> = (props) => {
+	const name = `${props.name} - Share a Bill`
 	return (
 		<Head>
-			<title>Share a Bill</title>
+			<title>{name}</title>
 			<meta
 				name="description"
 				content="หารบิลกับเพื่อน เราช่วยให้คุณสามารถจัดแจงค่าใช้จ่ายได้อย่างง่ายดาย"

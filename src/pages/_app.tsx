@@ -17,7 +17,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
 	return (
 		<>
-			<MetaTags />
 			{getLayout(<Component {...pageProps} />)}
 		</>
 	);
