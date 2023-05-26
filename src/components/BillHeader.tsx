@@ -192,11 +192,11 @@ const BillHeader: React.FC<Props> = ({ link, onCopySuccess, bill }) => {
 					</form>
 				)}
 
-				<CopyToClipboard text={link} onCopy={onCopySuccess}>
+				{ !isEditing && <CopyToClipboard text={link} onCopy={onCopySuccess}>
 					<IconButton>
 						<LinkIcon color="info" />
 					</IconButton>
-				</CopyToClipboard>
+				</CopyToClipboard> }
 			</Stack>
 			<SpeedDial
 				ariaLabel="SpeedDial basic example"
