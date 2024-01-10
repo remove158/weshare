@@ -131,6 +131,7 @@ const UpdateItemModel: React.FC<Props> = ({ open, setOpen, id, bill, idx }) => {
 		const tmp = bill.orders.filter((_, o_id) => o_id !== idx);
 		await updateOrders(id, tmp);
 		setOpen(false);
+		SetPaid(false);
 	};
 	const onSave: (e: any) => void = async (e) => {
 		e.preventDefault();
